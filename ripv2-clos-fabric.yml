@@ -13,8 +13,8 @@ title:
   heightPercentage: 6
   logoFill: none
   stroke: lightgrey
-  subText: "An Example Spine and Leaf Fabric"
-  text: "Clos Fabric"
+  subText: "Spine-and-Leaf RIPv2 Topology"
+  text: "RIPv2 Clos Fabric"
   type: "bar"
 cisco: &cisco
   stroke: "none"
