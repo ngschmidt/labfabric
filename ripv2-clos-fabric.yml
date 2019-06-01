@@ -42,7 +42,7 @@ connection: &connection
 connections:
   - { <<: *connection, endpoints: [s0:f0/24-10.6.240.0/31, l0:f1/0/24-10.6.240.1/31] }
   - { <<: *connection, endpoints: [s0:f0/22-10.6.240.2/31, l1:f0/22-10.6.240.3/31] }
-  - { <<: *connection, endpoints: [s1:f0/23-10.6.241.0/31, l0:f0/23-10.6.241.1/31] }
+  - { <<: *connection, endpoints: [s1:f0/23-10.6.241.0/31, l0:f1/0/23-10.6.241.1/31] }
   - { <<: *connection, endpoints: [s1:f0/21-10.6.241.2/31, l1:f0/21-10.6.241.3/31] }
 
 
