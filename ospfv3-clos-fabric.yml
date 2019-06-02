@@ -14,7 +14,7 @@ title:
   logoFill: none
   stroke: lightgrey
   subText: "Spine-and-Leaf OSPF Topology"
-  text: "OSPF Clos Fabric"
+  text: "OSPFv3 Clos Fabric"
   type: "bar"
 cisco: &cisco
   stroke: "none"
@@ -29,10 +29,10 @@ cisco: &cisco
 l3sw: &l3sw {<<: *cisco, x: "-1", y: "+1", icon: "nexus5000"}
 
 icons:
-  s0: {<<: *l3sw, x: 1, y: 3, textLocation: topMiddle, text: "ospf-s0: 10.6.0.240/32"}
-  s1: {<<: *l3sw, x: 3, y: 3, textLocation: topMiddle, text: "ospf-s1: 10.6.0.241/32"}
-  l0: {<<: *l3sw, x: 0, y: 1, textLocation: bottomMiddle, text: "ospf-l0: 10.6.0.0/32"}
-  l1: {<<: *l3sw, x: 4, y: 1, textLocation: bottomMiddle, text: "ospf-l1: 10.6.0.1/32"}
+  s0: {<<: *l3sw, x: 1, y: 3, textLocation: topMiddle, text: "ospf-s0: fd00:6::240/64"}
+  s1: {<<: *l3sw, x: 3, y: 3, textLocation: topMiddle, text: "ospf-s1: fd00:6::241/64"}
+  l0: {<<: *l3sw, x: 0, y: 1, textLocation: bottomMiddle, text: "ospf-l0: fd00:6::0/128"}
+  l1: {<<: *l3sw, x: 4, y: 1, textLocation: bottomMiddle, text: "ospf-l1: fd00:6::1/128"}
 
 connection: &connection
   color: "black"
@@ -40,10 +40,10 @@ connection: &connection
   strokeWidth: 3
 
 connections:
-  - { <<: *connection, endpoints: [s0:f0/24-10.6.240.0/31, l0:f1/0/24-10.6.240.1/31] }
-  - { <<: *connection, endpoints: [s0:f0/22-10.6.240.2/31, l1:f0/22-10.6.240.3/31] }
-  - { <<: *connection, endpoints: [s1:f0/21-10.6.241.0/31, l0:f1/0/21-10.6.241.1/31] }
-  - { <<: *connection, endpoints: [s1:f0/23-10.6.241.2/31, l1:f0/23-10.6.241.3/31] }
+  - { <<: *connection, endpoints: [s0:f0/24-fd00;6;240;;1/126, l0:f1/0/24-fd00;6;240;;2/126] }
+  - { <<: *connection, endpoints: [s0:f0/22-fd00;6;240;;5/126, l1:f0/22-fd00;6;240;;6/126] }
+  - { <<: *connection, endpoints: [s1:f0/21-fd00;6;241;;1/126, l0:f1/0/21-fd00;6;241;;1/126] }
+  - { <<: *connection, endpoints: [s1:f0/23-fd00;6;241;;5/126, l1:f0/23-fd00;6;241;;6/126] }
 
 
 group: &group
