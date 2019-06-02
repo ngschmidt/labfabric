@@ -42,7 +42,7 @@ connection: &connection
 connections:
   - { <<: *connection, endpoints: [s0:f0/24-fd00;6;240;;1/126, l0:f1/0/24-fd00;6;240;;2/126] }
   - { <<: *connection, endpoints: [s0:f0/22-fd00;6;240;;5/126, l1:f0/22-fd00;6;240;;6/126] }
-  - { <<: *connection, endpoints: [s1:f0/21-fd00;6;241;;1/126, l0:f1/0/21-fd00;6;241;;1/126] }
+  - { <<: *connection, endpoints: [s1:f0/21-fd00;6;241;;1/126, l0:f1/0/21-fd00;6;241;;2/126] }
   - { <<: *connection, endpoints: [s1:f0/23-fd00;6;241;;5/126, l1:f0/23-fd00;6;241;;6/126] }
 
 
