@@ -1,0 +1,69 @@
+diagram:
+  fill: "snow"
+  columns: 7
+  rows: 4
+  gridLines: false
+  gridPaddingInner: .25
+  groupPadding: .75
+title:
+  author: "Engyak.net"
+  company: "Engyak.net"
+  version: "1.1"
+  color: black
+  heightPercentage: 6
+  logoFill: none
+  stroke: lightgrey
+  subText: "Route/Switch Lab Topology"
+  text: "Home Lab Fabric"
+  type: "bar"
+cisco: &cisco
+  stroke: "none"
+  color: "black"
+  iconFill: "darkslategrey"
+  iconStroke: "lightgrey"
+  iconStrokeWidth: .25
+  iconFamily: "cisco"
+  fill: "none"
+  preserveWhite: "true"
+
+l3sw: &l3sw {<<: *cisco, x: "-1", y: "+1", icon: "nexus5000"}
+
+icons:
+  s0: {<<: *l3sw, x: 2, y: 2, textLocation: topRight, text: "s0"}
+  s1: {<<: *l3sw, x: 4, y: 0, textLocation: bottomMiddle, text: "s1"}
+  l0: {<<: *l3sw, x: 4, y: 2, textLocation: topLeft, text: "l0"}
+  l1: {<<: *l3sw, x: 2, y: 0, textLocation: bottomMiddle, text: "l1"}
+  esx0: {<<: *cisco, icon: "file_server", x: 0, y: 3, text: "wintermute n-vds0" }
+  esx1: {<<: *cisco, icon: "file_server", x: 6, y: 3, text: "wintermute n-vds1" }
+  esx2: {<<: *cisco, icon: "file_server", x: 0, y: 1, text: "wintermute n-vds2" }
+  esx3: {<<: *cisco, icon: "file_server", x: 6, y: 1, text: "wintermute n-vds3" }
+  firewall0: {<<: *cisco, icon: "router", x: 2, y: 3, textLocation: topMiddle, text: "Firewall" }
+  firewall1: {<<: *cisco, icon: "router", x: 4, y: 3, textLocation: topMiddle, text: "Firewall" }
+
+
+connection: &connection
+  color: "black"
+  stroke: "darkslategrey"
+  strokeWidth: 3
+
+connections:
+  - { <<: *connection, endpoints: [s0:f0/23-24, l0:f1/0/23-24] }
+  - { <<: *connection, endpoints: [s0:f0/21-22, l1:f0/21-22] }
+  - { <<: *connection, endpoints: [s1:f0/21-22, l0:f1/0/21-22] }
+  - { <<: *connection, endpoints: [s1:f0/23-24, l1:f0/23-24] }
+  - { <<: *connection, endpoints: [s0:f0/14, esx0] }
+  - { <<: *connection, endpoints: [l0:f0/14, esx1] }
+  - { <<: *connection, endpoints: [l1:f0/14, esx2] }
+  - { <<: *connection, endpoints: [s1:f0/14, esx3] }
+  - { <<: *connection, endpoints: [s0:f0/1, firewall0:e0/1] }
+  - { <<: *connection, endpoints: [l0:f0/1, firewall1:e0/2] }
+
+
+
+
+
+group: &group
+  - { color: "black", stroke: "black", fill: "#EEEEEE", strokeWidth: .5, textLocation: leftMiddle }
+zone: &zone { <<: *group, fill: "#DDDDDD", strokeDashArray: [3,3] }
+hiddenGroup: &hiddenGroup
+  - { color: "none", stroke: "none", fill: "none" }
