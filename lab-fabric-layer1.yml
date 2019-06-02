@@ -37,8 +37,8 @@ icons:
   esx1: {<<: *cisco, icon: "file_server", x: 6, y: 3, text: "wintermute n-vds1" }
   esx2: {<<: *cisco, icon: "file_server", x: 0, y: 1, text: "wintermute n-vds2" }
   esx3: {<<: *cisco, icon: "file_server", x: 6, y: 1, text: "wintermute n-vds3" }
-  firewall0: {<<: *cisco, icon: "router", x: 2, y: 3, textLocation: topMiddle, text: "Firewall" }
-  firewall1: {<<: *cisco, icon: "router", x: 4, y: 3, textLocation: topMiddle, text: "Firewall" }
+  firewall0: {<<: *cisco, icon: "firewall", x: 2, y: 3, textLocation: topMiddle, text: " " }
+  firewall1: {<<: *cisco, icon: "firewall", x: 4, y: 3, textLocation: topMiddle, text: " " }
 
 
 connection: &connection
