@@ -1,0 +1,55 @@
+diagram:
+  fill: "snow"
+  columns: 5
+  rows: 4
+  gridLines: false
+  gridPaddingInner: .25
+  groupPadding: .75
+title:
+  author: "Engyak.net"
+  company: "Engyak.net"
+  version: "1.1"
+  color: black
+  heightPercentage: 6
+  logoFill: none
+  stroke: lightgrey
+  subText: "Spine-and-Leaf eBGP Topology"
+  text: "eBGP Clos Fabric"
+  type: "bar"
+cisco: &cisco
+  stroke: "none"
+  color: "black"
+  iconFill: "darkslategrey"
+  iconStroke: "lightgrey"
+  iconStrokeWidth: .25
+  iconFamily: "cisco"
+  fill: "none"
+  preserveWhite: "true"
+
+l3sw: &l3sw {<<: *cisco, x: "-1", y: "+1", icon: "nexus5000"}
+
+icons:
+  s0: {<<: *l3sw, x: 1, y: 3, textLocation: topMiddle, text: "bgp-as65000-s0: 10.6.0.240/32"}
+  s1: {<<: *l3sw, x: 3, y: 3, textLocation: topMiddle, text: "bgp-as65001-s1: 10.6.0.241/32"}
+  l0: {<<: *l3sw, x: 0, y: 1, textLocation: bottomMiddle, text: "bgp-as64900-l0: 10.6.0.0/32"}
+  l1: {<<: *l3sw, x: 4, y: 1, textLocation: bottomMiddle, text: "bgp-as64901-l1: 10.6.0.1/32"}
+
+connection: &connection
+  color: "black"
+  stroke: "darkslategrey"
+  strokeWidth: 3
+
+connections:
+  - { <<: *connection, endpoints: [s0:f0/24-10.6.240.0/31, l0:f1/0/24-10.6.240.1/31] }
+  - { <<: *connection, endpoints: [s0:f0/22-10.6.240.2/31, l1:f0/22-10.6.240.3/31] }
+  - { <<: *connection, endpoints: [s1:f0/21-10.6.241.0/31, l0:f1/0/21-10.6.241.1/31] }
+  - { <<: *connection, endpoints: [s1:f0/23-10.6.241.2/31, l1:f0/23-10.6.241.3/31] }
+
+
+group: &group
+  - { color: "black", stroke: "black", fill: "#EEEEEE", strokeWidth: .5, textLocation: leftMiddle }
+zone: &zone { <<: *group, fill: "#DDDDDD", strokeDashArray: [3,3] }
+hiddenGroup: &hiddenGroup
+  - { color: "none", stroke: "none", fill: "none" }
+groups:
+  fabric: { <<: *group, name: "Lab Fabric", members: [s0, s1, l0, l1] }
