@@ -1,0 +1,76 @@
+diagram:
+  fill: "snow"
+  columns: 7
+  rows: 7
+  gridLines: false
+  gridPaddingInner: .25
+  groupPadding: .75
+title:
+  author: "Engyak.net"
+  company: "Engyak.net"
+  version: "1.1"
+  color: black
+  heightPercentage: 6
+  logoFill: none
+  stroke: lightgrey
+  subText: "NSX-T Lab Design, ASN 65000"
+  text: "NSX-T and Layer 3 Leaf-Spine Applied"
+  type: "bar"
+cisco: &cisco
+  stroke: "none"
+  color: "black"
+  iconFill: "darkgreen"
+  iconStroke: "lightgrey"
+  iconStrokeWidth: .25
+  iconFamily: "cisco"
+  fill: "none"
+  preserveWhite: "true"
+
+l3sw: &l3sw {<<: *cisco, x: "-1", y: "+1", icon: "nexus5000"}
+t0rtr: &t0rtr {<<: *cisco, x: "-1", y: "+1", icon: "router_firewall"}
+t1rtr: &t1rtr {<<: *cisco, x: "-1", y: "+1", icon: "routerwithsiliconswitch"}
+firewall: &firewall {<<: *cisco, x: "-1", y: "+1", icon: "firewall"}
+cloud: &cloud {<<: *cisco, x: "-1", y: "+1", icon: "cloud"}
+segment: &segment {<<: *cisco, x: "-1", y: "+1", icon: "contentswitch"}
+
+
+icons:
+  s0: {<<: *l3sw, x: 2, y: 6, textLocation: topMiddle, text: "bgp-rr0-s0: 10.6.0.240/32"}
+  s1: {<<: *l3sw, x: 4, y: 6, textLocation: topMiddle, text: "bgp-rr1-s1: 10.6.0.241/32"}
+  l0: {<<: *l3sw, x: 0, y: 4, textLocation: topLeft, text: "bgp-rrc-l0: 10.6.0.0/32"}
+  l1: {<<: *l3sw, x: 6, y: 4, textLocation: topRight, text: "bgp-rrc-l1: 10.6.0.1/32"}
+  fw0: {<<: *firewall, x: 3, y: 3, textLocation: topMiddle, iconFill: "purple", text: "ASN64900: 10.66.255.255/32"}
+  cl0: {<<: *cloud, x: 3, y: 2, textLocation: bottomMiddle, text: "Internet"}
+  etn0t0: {<<: *t0rtr, x: 1, y: 2, textLocation: bottomMiddle, iconFill: "blue", text: "etn0t0-01: 10.6.200.2/24"}
+  etn1t0: {<<: *t0rtr, x: 5, y: 2, textLocation: bottomMiddle, iconFill: "blue", text: "etn1t0-01: 10.6.201.2/24"}
+  etn0t1: {<<: *t1rtr, x: 3, y: 1, textLocation: bottomMiddle, iconFill: "blue", text: "Tier-1 Routing"}
+  vni31:  {<<: *segment, x: 0, y: 0, textLocation: bottomMiddle, iconFill: "blue", text: "VNI 31: 10.7.31.0/24"}
+
+
+connection: &connection
+  color: "black"
+  stroke: "darkslategrey"
+  strokeWidth: 3
+
+connections:
+  - { <<: *connection, endpoints: [s0:f0/24-10.6.240.0/31, l0:f1/0/24-10.6.240.1/31] }
+  - { <<: *connection, endpoints: [s0:f0/22-10.6.240.2/31, l1:f0/22-10.6.240.3/31] }
+  - { <<: *connection, endpoints: [s1:f0/21-10.6.241.0/31, l0:f1/0/21-10.6.241.1/31] }
+  - { <<: *connection, endpoints: [s1:f0/23-10.6.241.2/31, l1:f0/23-10.6.241.3/31] }
+  - { <<: *connection, endpoints: [fw0:e1/2-10.6.99.1/30, l0:f1/0/13-10.6.99.2/30] }
+  - { <<: *connection, endpoints: [fw0:e1/7-10.6.99.5/30, l1:f0/13-10.6.99.6/30] }
+  - { <<: *connection, endpoints: [fw0:e1/8, cl0] }
+  - { <<: *connection, endpoints: [etn0t0:fp-eth0.100-10.6.100.100/24, l0:VLAN100-10.6.100.1/24] }
+  - { <<: *connection, endpoints: [etn1t0:fp-eth0.100-10.6.101.100/24, l1:VLAN100-10.6.101.1/24] }
+  - { <<: *connection, endpoints: [etn0t0, etn0t1] }
+  - { <<: *connection, endpoints: [etn1t0, etn0t1] }
+  - { <<: *connection, endpoints: [vni31, etn0t1] }
+
+
+group: &group
+  - { color: "black", stroke: "black", fill: "#EEEEEE", strokeWidth: .5, textLocation: leftMiddle }
+zone: &zone { <<: *group, fill: "#DDDDDD", strokeDashArray: [3,3] }
+hiddenGroup: &hiddenGroup
+  - { color: "none", stroke: "none", fill: "none" }
+groups:
+  fabric: { <<: *group, name: "Lab Fabric", members: [s0, s1, l0, l1] }
